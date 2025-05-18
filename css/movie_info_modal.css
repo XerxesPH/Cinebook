@@ -1,0 +1,767 @@
+/* Movie Info Modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #222222;
+  overflow-y: auto;
+}
+
+/* Custom scrollbar for the modal itself */
+#movieModal::-webkit-scrollbar {
+  width: 8px;
+}
+
+#movieModal::-webkit-scrollbar-track {
+  background: var(--background-color);
+}
+
+#movieModal::-webkit-scrollbar-thumb {
+  background-color: var(--border-color);
+  border-radius: 4px;
+}
+
+/* For Firefox */
+#movieModal {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-color) var(--background-color);
+}
+
+.modal-content {
+  background-color: var(--background-color);
+  margin: 5% auto;
+  padding: 30px;
+  border-radius: 10px;
+  max-width: 1000px;
+  width: 90%;
+  position: relative;
+  box-shadow: 0 5px 15px var(--shadow-color);
+  animation: modalFadeIn 0.3s ease-in-out;
+}
+
+/* Custom Scrollbar for Modal Content */
+/* For Webkit browsers (Chrome, Safari) */
+.modal-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+  background: var(--background-color);
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  background-color: var(--border-color);
+  border-radius: 4px;
+}
+
+/* For Firefox */
+.modal-content {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-color) var(--background-color);
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  color: var(--text-color);
+  line-height: 1;
+  padding: 10px;
+  z-index: 10;
+}
+
+.close-btn:hover {
+  color: var(--primary-color);
+}
+
+.movie-details {
+  text-align: center;
+  padding: 10px;
+}
+
+.movie-details h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: var(--primary-color);
+}
+
+.movie-info-container {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+.movie-poster-container {
+  flex: 0 0 auto;
+}
+
+#moviePoster {
+  width: 250px;
+  height: 375px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px var(--shadow-color);
+  transition: transform 0.3s ease;
+}
+
+#moviePoster:hover {
+  transform: scale(1.02);
+}
+
+.movie-info-right {
+  flex: 1 1 auto;
+}
+
+#movieSynopsis {
+  text-align: left;
+  margin: 20px 0;
+  line-height: 1.6;
+  color: var(--text-color);
+}
+
+#trailerContainer {
+  margin-bottom: 20px;
+  max-width: 100%;
+}
+
+#trailerContainer iframe {
+  border-radius: 10px;
+  max-width: 100%;
+  aspect-ratio: 16 / 9;
+}
+
+.movie-cinemas,
+.movie-dates {
+  text-align: left;
+  margin-bottom: 20px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.movie-cinemas h3,
+.movie-dates h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: var(--primary-color);
+}
+
+#movieCinemas {
+  list-style: none;
+  padding-left: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+#movieCinemas li {
+  margin-bottom: 8px;
+  padding: 5px 10px;
+  background-color: var(--card-background);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  border: 1px solid transparent;
+}
+
+#movieCinemas li:hover {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+#movieCinemas li.selected {
+  background-color: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+.selected-cinema-info {
+  margin-top: 15px;
+  padding: 10px;
+  background-color: var(--card-background);
+  border-radius: 5px;
+  border-left: 4px solid var(--primary-color);
+}
+
+.date-slider {
+  display: flex;
+  overflow-x: auto;
+  gap: 15px;
+  padding: 20px 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-color) var(--background-color);
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+}
+
+.date-slider::-webkit-scrollbar {
+  height: 6px;
+}
+
+.date-slider::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color);
+  border-radius: 3px;
+}
+
+.date-slider::-webkit-scrollbar-track {
+  background-color: var(--card-background);
+}
+
+.date-item {
+  min-width: 140px;
+  width: 140px;
+  flex: 0 0 auto;
+  padding: 15px 10px;
+  background-color: var(--card-background);
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 5px var(--shadow-color);
+  transition: transform 0.2s, box-shadow 0.2s, border 0.2s;
+  cursor: pointer;
+  border: 2px solid transparent;
+  display: flex;
+  flex-direction: column;
+}
+
+.date-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.date-item .date {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 15px;
+  color: var(--primary-color);
+  font-size: 1rem;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.date-item .times {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.date-item.selected {
+  border-color: var(--primary-color);
+  background-color: rgba(var(--primary-color-rgb), 0.1);
+}
+
+.time-item {
+  padding: 8px 5px;
+  background-color: var(--background-color);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: block;
+  width: 100%;
+  text-align: center;
+  border: 1px solid var(--card-background);
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.time-item:hover {
+  background-color: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+.time-item.selected {
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: bold;
+  border-color: var(--primary-color);
+}
+
+/* Strengthening disabled time slot styles */
+.time-item.disabled {
+  opacity: 0.5;
+  background-color: #444 !important;
+  color: #999 !important;
+  cursor: not-allowed !important;
+  text-decoration: line-through;
+  pointer-events: none !important;
+  position: relative;
+  border: 1px solid #555 !important;
+}
+
+.time-item.disabled::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(45deg, rgba(75, 75, 75, 0.1) 25%, transparent 25%, transparent 50%, rgba(75, 75, 75, 0.1) 50%, rgba(75, 75, 75, 0.1) 75%, transparent 75%, transparent);
+  background-size: 8px 8px;
+  pointer-events: none;
+}
+
+.time-item.disabled:hover {
+  transform: none !important;
+  box-shadow: none !important;
+  background-color: #444 !important;
+  color: #999 !important;
+}
+
+/* Add styles for past dates */
+.date-item.past-date {
+  opacity: 0.6;
+  background-color: #444;
+  color: #999;
+  cursor: not-allowed;
+  position: relative;
+}
+
+.date-item.past-date::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(0, 0, 0, 0.1),
+    rgba(0, 0, 0, 0.1) 10px,
+    rgba(0, 0, 0, 0.2) 10px,
+    rgba(0, 0, 0, 0.2) 20px
+  );
+  pointer-events: none;
+}
+
+.date-item.past-date .date {
+  color: #999;
+}
+
+.date-item.past-date .time-item {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.booking-section {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: var(--card-background);
+  border-radius: 10px;
+  text-align: left;
+}
+
+.booking-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.booking-detail {
+  flex: 1 1 200px;
+  padding: 10px;
+  background-color: var(--background-color);
+  border-radius: 5px;
+  border: 1px solid var(--card-background);
+}
+
+.detail-label {
+  font-weight: bold;
+  color: var(--primary-color);
+  margin-right: 10px;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.book-now-btn {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s, transform 0.2s;
+  width: 100%;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.book-now-btn:hover {
+  background-color: var(--hover-color);
+  transform: translateY(-2px);
+}
+
+.book-now-btn:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  transform: none;
+  color: #888;
+}
+
+/* Improved Responsive adjustments */
+@media screen and (max-width: 768px) {
+  .modal-content {
+    width: 95%;
+    padding: 20px 15px;
+    margin: 10% auto 5%;
+    max-height: 85vh;
+    overflow-y: auto;
+  }
+  
+  .movie-info-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .movie-poster-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  
+  #moviePoster {
+    width: 200px;
+    height: auto;
+    max-width: 100%;
+  }
+  
+  .movie-info-right {
+    text-align: center;
+    width: 100%;
+  }
+  
+  #movieSynopsis {
+    text-align: center;
+    font-size: 14px;
+  }
+  
+  #movieCinemas {
+    justify-content: center;
+  }
+  
+  #movieCinemas li {
+    margin: 5px;
+    padding: 10px 15px;
+    font-size: 14px;
+    text-align: center;
+    min-width: 120px;
+  }
+  
+  .date-item {
+    min-width: 140px;
+    padding: 12px;
+  }
+  
+  .date-item .date {
+    font-size: 14px;
+  }
+  
+  .time-item {
+    padding: 10px 12px;
+    margin: 5px 2px;
+    font-size: 14px;
+  }
+  
+  .booking-summary {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .booking-detail {
+    padding: 15px;
+  }
+  
+  .book-now-btn {
+    padding: 15px 20px;
+    font-size: 16px;
+  }
+  
+  .movie-details h2 {
+    font-size: 1.5rem;
+    padding: 0 25px;
+  }
+  
+  .close-btn {
+    top: 10px;
+    right: 10px;
+    padding: 15px;
+    font-size: 24px;
+  }
+}
+
+/* Additional mobile responsiveness */
+@media screen and (max-width: 480px) {
+  .modal-content {
+    width: 100%;
+    padding: 15px 10px;
+    margin: 0;
+    border-radius: 0;
+    max-height: 100vh;
+    height: 100%;
+  }
+  
+  .close-btn {
+    top: 5px;
+    right: 5px;
+    padding: 10px;
+    font-size: 22px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+  }
+  
+  #movieCinemas li {
+    flex-basis: calc(50% - 10px);
+    text-align: center;
+    padding: 10px 5px;
+    font-size: 13px;
+    min-width: 0;
+  }
+  
+  .date-item {
+    min-width: 110px;
+    padding: 8px;
+  }
+  
+  .time-item {
+    padding: 8px 10px;
+    font-size: 13px;
+    margin: 3px 2px;
+  }
+  
+  .movie-details h2 {
+    font-size: 1.3rem;
+    margin-top: 10px;
+  }
+  
+  #moviePoster {
+    width: 150px;
+  }
+  
+  .movie-cinemas h3,
+  .movie-dates h3,
+  .selected-cinema-info h3 {
+    font-size: 16px;
+  }
+  
+  .booking-section {
+    padding: 12px 8px;
+    margin-top: 15px;
+  }
+  
+  .booking-summary {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  
+  .booking-detail {
+    padding: 8px;
+    font-size: 12px;
+    flex: none;
+  }
+  
+  .booking-detail:last-child {
+    grid-column: span 2;
+  }
+  
+  .detail-label {
+    font-size: 11px;
+    margin-bottom: 3px;
+  }
+  
+  .book-now-btn {
+    padding: 10px;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+}
+
+/* Added for improved touch experience */
+@media (hover: none) {
+  .date-item:hover {
+    transform: none;
+  }
+  
+  .time-item, 
+  .book-now-btn:not(:disabled),
+  #movieCinemas li {
+    transition: background-color 0.3s;
+  }
+  
+  .time-item:active,
+  .book-now-btn:not(:disabled):active,
+  #movieCinemas li:active {
+    background-color: var(--primary-color);
+    color: white;
+  }
+}
+
+.screen {
+  background-color: var(--primary-color);
+  height: 10px;
+  width: 80%;
+  margin: 0 auto 30px auto;
+  transform: perspective(300px) rotateX(-5deg);
+  box-shadow: 0 3px 10px rgba(255, 0, 0, 0.7);
+}
+
+/* Extra small mobile screens in portrait orientation */
+@media screen and (max-width: 375px) and (orientation: portrait) {
+  .booking-section {
+    padding: 10px 5px;
+  }
+  
+  .booking-summary {
+    grid-template-columns: 1fr;
+    gap: 5px;
+  }
+  
+  .booking-detail {
+    padding: 6px;
+    font-size: 11px;
+  }
+  
+  .booking-detail:last-child {
+    grid-column: 1;
+  }
+  
+  .detail-label {
+    display: inline-block;
+    margin-right: 5px;
+    margin-bottom: 0;
+    font-size: 11px;
+  }
+  
+  .book-now-btn {
+    padding: 8px;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+  }
+}
+
+/* Samsung A50s and similar devices fix */
+@media screen and (max-width: 412px) and (min-width: 360px) {
+  .booking-section {
+    padding: 10px 5px;
+    margin-top: 12px;
+  }
+  
+  .booking-summary {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 5px;
+  }
+  
+  .booking-detail {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    font-size: 11px;
+  }
+  
+  .detail-label {
+    display: inline-block;
+    width: auto;
+    margin-right: 5px;
+    margin-bottom: 0;
+    font-size: 11px;
+  }
+  
+  .book-now-btn {
+    padding: 8px;
+    font-size: 13px;
+  }
+}
+
+/* Coming Soon Styles */
+.coming-soon-label {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background-color: var(--primary-color);
+  color: white;
+  padding: 8px 15px;
+  border-radius: 4px;
+  font-weight: bold;
+  transform: rotate(5deg);
+  z-index: 2;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  font-size: 14px;
+}
+
+/* Style for Book Now button when disabled due to Coming Soon */
+.book-now-btn.coming-soon {
+  background-color: var(--secondary-color);
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+.book-now-btn.coming-soon:hover {
+  background-color: var(--secondary-color);
+  transform: none;
+}
+
+/* Coming Soon Info in Dates Section */
+.coming-soon-info {
+  text-align: center;
+  padding: 30px 15px;
+  background-color: rgba(255, 0, 0, 0.1);
+  border-radius: 8px;
+  margin: 30px auto;
+  color: var(--text-color);
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.coming-soon-icon {
+  font-size: 40px;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.coming-soon-info p {
+  margin-bottom: 15px;
+  font-size: 18px;
+  line-height: 1.4;
+}
+
+.coming-soon-note {
+  font-size: 14px !important;
+  opacity: 0.8;
+  font-style: italic;
+}
+
+.coming-soon-info h3 {
+  color: var(--primary-color);
+  margin-bottom: 15px;
+  font-size: 22px;
+}

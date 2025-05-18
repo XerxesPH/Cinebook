@@ -1,0 +1,152 @@
+/* Side Menu Styles */
+.side-menu {
+  position: fixed;
+  top: 0;
+  left: -280px; /* Start off-screen */
+  width: 280px;
+  height: 100%;
+  background-color: #1a1a1a;
+  transition: left 0.3s ease;
+  z-index: 1000;
+  color: white;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+  overflow-y: auto;
+}
+
+.side-menu.open {
+  left: 0 !important; /* Force to be visible when open */
+  display: block !important;
+}
+
+.menu-header {
+  padding: 1.5rem;
+  background-color: #111;
+  text-align: center;
+  border-bottom: 1px solid #333;
+}
+
+.menu-profile-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.menu-profile-pic {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+  border: 2px solid #e50914;
+  object-fit: cover;
+}
+
+.menu-user-name {
+  font-size: 18px;
+  margin-bottom: 0.5rem;
+}
+
+.menu-user-email {
+  font-size: 14px;
+  color: #bbb;
+}
+
+.menu-items {
+  padding: 1rem 0;
+}
+
+.menu-item {
+  padding: 0.8rem 1.5rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  text-decoration: none;
+  color: white;
+}
+
+.menu-item:hover {
+  background-color: #333;
+}
+
+.menu-item i {
+  margin-right: 1rem;
+  width: 20px;
+  text-align: center;
+}
+
+.menu-item span {
+  font-size: 16px;
+}
+
+.guest-options {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  gap: 1rem;
+}
+
+.menu-login-btn,
+.menu-register-btn {
+  padding: 0.8rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.2s;
+}
+
+.menu-login-btn {
+  background-color: #e50914;
+  color: white;
+}
+
+.menu-register-btn {
+  background-color: transparent;
+  border: 1px solid #e50914;
+  color: #e50914;
+}
+
+.menu-login-btn:hover {
+  background-color: #b20710;
+}
+
+.menu-register-btn:hover {
+  background-color: rgba(229, 9, 20, 0.1);
+}
+
+/* Menu Overlay */
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 99;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s;
+}
+
+.menu-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Force side menu to be visible when open on all devices */
+@media screen and (max-width: 1023px) {
+  .side-menu.open {
+    left: 0 !important;
+    display: block !important;
+  }
+}
+
+/* Fix for iOS Safari */
+html.menu-open,
+body.menu-open {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}

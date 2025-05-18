@@ -1,0 +1,278 @@
+/* Tablet Styles (768px to 1023px) */
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  /* General layout adjustments */
+  body {
+    font-size: 15px;
+  }
+  
+  .main-content {
+    padding: 110px 20px 40px;
+  }
+  
+  /* Navbar adjustments */
+  .main-navbar {
+    padding: 12px 20px;
+    display: grid; /* Use grid for tablet too */
+    grid-template-columns: auto 1fr auto; /* Left (profile), center (logo), right (menu) */
+    align-items: center;
+  }
+  
+  /* Logo in center for tablet */
+  .logo {
+    grid-column: 2;
+    text-align: center;
+  }
+  
+  .logo h1 {
+    font-size: 22px;
+  }
+  
+  /* Hide desktop-specific elements */
+  .profile-section, .desktop-nav-links {
+    display: none !important;
+  }
+  
+  /* Show navbar-left and navbar-right for tablet */
+  .navbar-left {
+    display: flex;
+    align-items: center;
+    grid-column: 1;
+  }
+  
+  .navbar-right {
+    display: flex;
+    align-items: center;
+    grid-column: 3;
+    position: relative; /* Add position relative to contain the absolute positioned menu */
+  }
+  
+  /* Make sure side menu works on tablet */
+  .side-menu {
+    z-index: 1000;
+  }
+  
+  .side-menu.open {
+    left: 0;
+  }
+  
+  /* Show mobile menu toggle */
+  .menu-toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 28px;
+    height: 22px;
+    cursor: pointer;
+  }
+  
+  .menu-toggle span {
+    height: 3px;
+    width: 100%;
+    background-color: var(--text-color);
+    border-radius: 3px;
+    transition: all 0.3s;
+  }
+  
+  .menu-toggle.active span:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+  }
+  
+  .menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+  }
+  
+  .menu-toggle.active span:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+  }
+  
+  /* Nav links as slide-in panel on tablet (similar to profile menu) */
+  .mobile-nav-links {
+    display: block;
+    position: fixed;
+    top: 0;
+    right: -320px; /* Start off-screen, slightly wider for tablet */
+    width: 320px;
+    height: 100vh;
+    background-color: var(--background-light);
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+    z-index: 1001;
+    padding: 20px 15px;
+    overflow-y: auto;
+    transition: right 0.3s ease;
+  }
+  
+  .mobile-nav-links.active {
+    right: 0; /* Slide in from right */
+  }
+  
+  /* Close button for mobile menu - positioned at the top */
+  .mobile-menu-close {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: var(--text-color);
+  }
+  
+  .mobile-menu-close i {
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  
+  .mobile-menu-close i:hover {
+    color: var(--primary-color);
+  }
+  
+  /* Mobile dropdown styles - updated for slide-in panel */
+  .mobile-nav-links .dropdown {
+    width: 100%;
+    position: relative;
+    margin: 10px 0;
+  }
+  
+  .mobile-nav-links .dropdown .dropbtn {
+    width: 100%;
+    text-align: left;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: transparent;
+    border: none;
+    color: var(--text-color);
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+  
+  .mobile-nav-links .dropdown .dropbtn:hover {
+    color: var(--primary-color);
+  }
+  
+  .mobile-nav-links .dropdown .dropbtn i {
+    transition: transform 0.3s;
+  }
+  
+  .mobile-nav-links .dropdown.active .dropbtn i {
+    transform: rotate(180deg);
+  }
+  
+  /* Dropdown content appears from left side */
+  .mobile-nav-links .dropdown-content {
+    position: static;
+    visibility: hidden;
+    opacity: 0;
+    width: 100%;
+    max-height: 0;
+    overflow: hidden;
+    box-shadow: none;
+    transition: max-height 0.5s ease, opacity 0.5s ease, visibility 0s linear 0.5s;
+    margin-left: 0;
+    padding-left: 0;
+    display: block;
+    background-color: transparent;
+    transform-origin: left;
+    transform: translateX(-20px);
+  }
+  
+  .mobile-nav-links .dropdown.active .dropdown-content {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(0);
+    transition: max-height 0.5s ease, opacity 0.5s ease, visibility 0s linear 0s, transform 0.5s ease;
+  }
+  
+  /* Make sure dropdown links are visible and aligned with parent links */
+  .mobile-nav-links .dropdown-content a {
+    padding: 10px;
+    padding-left: 25px;
+    margin: 5px 0;
+    display: block;
+    color: var(--text-color);
+    font-size: 15px;
+    border-left: 3px solid transparent;
+    transition: all 0.3s ease;
+  }
+  
+  .mobile-nav-links .dropdown-content a:hover {
+    color: var(--primary-color);
+    background-color: rgba(229, 9, 20, 0.1);
+    border-left: 3px solid var(--primary-color);
+    padding-left: 35px;
+  }
+  
+  /* Mobile menu overlay */
+  .mobile-menu-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 98;
+  }
+  
+  .mobile-menu-overlay.active {
+    display: block;
+  }
+  
+  /* Profile button adjustments */
+  .profile-btn {
+    width: 36px;
+    height: 36px;
+  }
+  
+  /* Side menu improvements */
+  .side-menu {
+    width: 320px;
+  }
+  
+  /* Swipe areas */
+  .swipe-area-left, .swipe-area-right {
+    display: block;
+    position: fixed;
+    top: 0;
+    height: 100%;
+    width: 20px;
+    z-index: 97;
+  }
+  
+  .swipe-area-left {
+    left: 0;
+  }
+  
+  .swipe-area-right {
+    right: 0;
+  }
+  
+  /* Grid layouts for tablets */
+  .movies-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  
+  .movie-poster-container {
+    height: 280px;
+  }
+  
+  /* Section header adjustments */
+  .section-header {
+    margin-bottom: 25px;
+  }
+  
+  .section-header h2 {
+    font-size: 1.8rem;
+  }
+  
+  /* Form field sizes */
+  input, select, textarea {
+    padding: 12px;
+  }
+  
+  /* Slider adjustments */
+  .swiper-container {
+    height: 400px;
+  }
+} 

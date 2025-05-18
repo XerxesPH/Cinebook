@@ -1,0 +1,331 @@
+/* Mobile Styles (up to 767px) */
+@media screen and (max-width: 767px) {
+  /* General layout adjustments */
+  body {
+    font-size: 14px;
+  }
+  
+  .main-content {
+    padding: 100px 15px 30px;
+  }
+  
+  /* Contact navbar adjustments */
+  .contact-navbar {
+    padding: 8px 15px;
+  }
+  
+  .social-icons a {
+    margin-right: 10px;
+    font-size: 16px;
+  }
+  
+  /* Main navbar mobile layout */
+  .main-navbar {
+    padding: 10px 15px;
+    display: grid; /* Use grid for mobile too */
+    grid-template-columns: auto 1fr auto; /* Left (profile), center (logo), right (menu) */
+    align-items: center;
+  }
+  
+  /* Logo in center for mobile */
+  .logo {
+    grid-column: 2;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    height: 100%;
+  }
+  
+  .logo h1 {
+    font-size: 20px;
+    line-height: 1.2;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    top: 2px; /* Fine-tune vertical alignment */
+  }
+  
+  /* Hide desktop-specific elements */
+  .profile-section, .desktop-nav-links {
+    display: none !important;
+  }
+  
+  /* Show navbar-left and navbar-right */
+  .navbar-left {
+    display: flex;
+    align-items: center;
+    grid-column: 1;
+  }
+  
+  .navbar-right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    grid-column: 3;
+    position: relative; /* Add position relative to contain the absolute positioned menu */
+  }
+  
+  /* Menu toggle button adjustments */
+  .menu-toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 24px;
+    cursor: pointer;
+    z-index: 100;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Make sure side menu works on mobile */
+  .side-menu {
+    z-index: 1000;
+  }
+  
+  .side-menu.open {
+    left: 0;
+  }
+  
+  /* Nav links as slide-in panel on mobile (similar to profile menu) */
+  .mobile-nav-links {
+    display: block;
+    position: fixed;
+    top: 0;
+    right: -280px; /* Start off-screen */
+    width: 280px;
+    height: 100vh;
+    background-color: var(--background-light);
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+    z-index: 1001;
+    padding: 20px 15px;
+    overflow-y: auto;
+    transition: right 0.3s ease;
+  }
+  
+  .mobile-nav-links.active {
+    right: 0; /* Slide in from right */
+  }
+  
+  /* Close button for mobile menu - positioned at the top */
+  .mobile-menu-close {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: var(--text-color);
+  }
+  
+  .mobile-menu-close i {
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  
+  .mobile-menu-close i:hover {
+    color: var(--primary-color);
+  }
+  
+  .mobile-nav-links a {
+    margin: 10px 0;
+    width: 100%;
+    padding: 10px;
+    display: block;
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  .mobile-nav-links a:hover,
+  .mobile-nav-links a.active {
+    color: var(--primary-color);
+  }
+  
+  /* Mobile dropdown styles - updated for slide-in panel */
+  .mobile-nav-links .dropdown {
+    width: 100%;
+    position: relative;
+    margin: 10px 0;
+  }
+  
+  .mobile-nav-links .dropdown .dropbtn {
+    width: 100%;
+    text-align: left;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: transparent;
+    border: none;
+    color: var(--text-color);
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+  
+  .mobile-nav-links .dropdown .dropbtn:hover {
+    color: var(--primary-color);
+  }
+  
+  .mobile-nav-links .dropdown .dropbtn i {
+    transition: transform 0.3s;
+  }
+  
+  .mobile-nav-links .dropdown.active .dropbtn i {
+    transform: rotate(180deg);
+  }
+  
+  /* Dropdown content appears from left side */
+  .mobile-nav-links .dropdown-content {
+    position: static;
+    visibility: hidden;
+    opacity: 0;
+    width: 100%;
+    max-height: 0;
+    overflow: hidden;
+    box-shadow: none;
+    transition: max-height 0.5s ease, opacity 0.5s ease, visibility 0s linear 0.5s;
+    margin-left: 0;
+    padding-left: 0;
+    display: block;
+    background-color: transparent;
+    transform-origin: left;
+    transform: translateX(-20px);
+  }
+  
+  .mobile-nav-links .dropdown.active .dropdown-content {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(0);
+    transition: max-height 0.5s ease, opacity 0.5s ease, visibility 0s linear 0s, transform 0.5s ease;
+  }
+  
+  /* Make sure dropdown links are visible and aligned with parent links */
+  .mobile-nav-links .dropdown-content a {
+    padding: 10px;
+    padding-left: 25px;
+    margin: 5px 0;
+    display: block;
+    color: var(--text-color);
+    font-size: 15px;
+    border-left: 3px solid transparent;
+    transition: all 0.3s ease;
+  }
+  
+  .mobile-nav-links .dropdown-content a:hover {
+    color: var(--primary-color);
+    background-color: rgba(229, 9, 20, 0.1);
+    border-left: 3px solid var(--primary-color);
+    padding-left: 35px;
+  }
+  
+  /* Mobile menu toggle */
+  .menu-toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 24px;
+    cursor: pointer;
+    z-index: 100;
+  }
+  
+  .menu-toggle span {
+    height: 3px;
+    width: 100%;
+    background-color: var(--text-color);
+    border-radius: 3px;
+    transition: all 0.3s;
+  }
+  
+  .menu-toggle.active span:nth-child(1) {
+    transform: translateY(10px) rotate(45deg);
+  }
+  
+  .menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+  }
+  
+  .menu-toggle.active span:nth-child(3) {
+    transform: translateY(-10px) rotate(-45deg);
+  }
+  
+  /* Mobile menu overlay */
+  .mobile-menu-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+  }
+  
+  .mobile-menu-overlay.active {
+    display: block;
+  }
+  
+  /* Add body class for when mobile menu is open */
+  body.mobile-menu-open {
+    overflow: hidden;
+  }
+  
+  /* Side menu improvements */
+  .side-menu {
+    width: 80%;
+    max-width: 280px;
+  }
+  
+  /* Swipe areas for touch control */
+  .swipe-area-left, .swipe-area-right {
+    display: block;
+    position: fixed;
+    top: 0;
+    height: 100%;
+    width: 20px;
+    z-index: 97;
+  }
+  
+  .swipe-area-left {
+    left: 0;
+  }
+  
+  .swipe-area-right {
+    right: 0;
+  }
+  
+  /* Movie cards and grids */
+  .movies-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 15px;
+  }
+  
+  .movie-poster-container {
+    height: 200px;
+  }
+  
+  .movie-info h3 {
+    font-size: 1rem;
+  }
+  
+  /* Responsive forms */
+  input, select, textarea {
+    font-size: 16px; /* Prevent iOS zoom on focus */
+  }
+}
+
+/* Touch-specific improvements */
+@media (pointer: coarse) {
+  /* Larger touch targets */
+  .nav-links a, .dropdown .dropbtn, .menu-item, .info-btn {
+    min-height: 44px;
+  }
+  
+  /* Prevent double-tap zoom */
+  a, button {
+    touch-action: manipulation;
+  }
+} 

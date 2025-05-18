@@ -1,0 +1,360 @@
+/* Performance optimizations */
+body {
+  overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+html, body {
+  scroll-behavior: smooth;
+}
+
+/* Force hardware acceleration for smoother animations */
+.contact-navbar, .main-navbar, .social-icons a, .contact-link a, .logo h1, 
+.nav-links a, .login-button, .profile-btn, .dropdown-content {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Contact Navbar Styles */
+.contact-navbar {
+  background-color: var(--secondary-color);
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  z-index: 110;
+  top: 0;
+  transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.contact-navbar.hidden {
+  transform: translateY(-100%);
+}
+
+.social-icons a {
+  margin-right: 15px;
+  font-size: 18px;
+  color: var(--text-color);
+  transition: all 0.3s;
+}
+
+.social-icons a:hover {
+  color: var(--primary-color);
+  transform: translateY(-2px);
+}
+
+.contact-link a {
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+.contact-link a:hover {
+  color: var(--primary-color);
+  transform: translateY(-2px);
+}
+
+/* Main Navbar Styles */
+.main-navbar {
+  background-color: var(--background-light);
+  padding: 15px 20px;
+  position: fixed;
+  top: 40px; /* Adjust based on contact navbar height */
+  left: 0;
+  right: 0;
+  z-index: 100;
+  box-shadow: 0 2px 10px var(--shadow-color);
+  transition: top 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+/* On desktop, we want standard layout with centered logo */
+.main-navbar {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+}
+
+.profile-section {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.logo {
+  margin: 0;
+  grid-column: 2;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo h1 {
+  color: var(--primary-color);
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+  transition: all 0.3s;
+}
+
+.logo h1:hover {
+  transform: scale(1.05);
+  text-shadow: 0 0 10px rgba(229, 9, 20, 0.5);
+}
+
+.nav-links {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.nav-links a {
+  margin-left: 20px;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--primary-color);
+  transform: translateY(-2px);
+}
+
+.login-button {
+  background-color: transparent;
+  color: var(--text-color);
+  border: 1px solid var(--text-color);
+  padding: 8px 15px;
+  border-radius: 5px;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+.login-button:hover {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  border-color: var(--primary-color);
+  transform: translateY(-2px);
+}
+
+/* Profile Button Styles */
+.profile-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--background-color);
+  border: 2px solid var(--primary-color);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 100;
+  overflow: hidden;
+  transition: all 0.3s;
+}
+
+.profile-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(229, 9, 20, 0.5);
+}
+
+.profile-btn img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile-icon {
+  color: var(--text-color);
+  font-size: 20px;
+}
+
+/* Dropdown Styles */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropbtn {
+  background-color: transparent;
+  color: var(--text-color);
+  padding: 0;
+  font-size: 16px;
+  border: none;
+  margin-left: 20px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.dropbtn i {
+  margin-left: 5px;
+  transition: all 0.3s;
+}
+
+.dropdown:hover .dropbtn i {
+  transform: rotate(180deg);
+}
+
+.dropdown-content {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  min-width: 180px;
+  z-index: 1;
+  background-color: var(--background-light);
+  box-shadow: 0px 8px 16px 0px var(--shadow-color);
+  border-radius: 5px;
+  overflow: hidden;
+  top: 120%;
+  right: 0;
+  transition: visibility 0s, opacity 0.3s;
+  animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdown-content a {
+  color: var(--text-color);
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  margin: 0;
+  transition: all 0.3s;
+  border-left: 3px solid transparent;
+}
+
+.dropdown-content a:hover {
+  background-color: var(--background-color);
+  color: var(--primary-color);
+  border-left: 3px solid var(--primary-color);
+  padding-left: 20px;
+}
+
+.dropdown:hover .dropdown-content {
+  visibility: visible;
+  opacity: 1;
+  transition-delay: 0s;
+}
+
+/* When user moves mouse away from dropdown, add delay before hiding */
+.dropdown .dropdown-content {
+  transition-delay: 0.5s;
+}
+
+/* When dropdown or its content is hovered, cancel the hiding delay */
+.dropdown:hover .dropdown-content,
+.dropdown-content:hover {
+  transition-delay: 0s;
+}
+
+.dropdown:hover .dropbtn {
+  color: var(--primary-color);
+}
+
+/* Menu toggle button - hide on desktop */
+.menu-toggle {
+  display: none;
+}
+
+.menu-toggle span {
+  display: block;
+  height: 3px;
+  width: 100%;
+  background-color: var(--text-color);
+  border-radius: 3px;
+  transition: all 0.3s;
+}
+
+/* Hide mobile-only elements on desktop */
+.navbar-left, .navbar-center, .navbar-right, .swipe-area-left, .swipe-area-right {
+  display: none;
+}
+
+/* Side menu should be visible when open */
+.side-menu {
+  z-index: 1000;
+}
+
+.side-menu.open {
+  left: 0;
+}
+
+/* Mobile Responsive Styles */
+@media screen and (max-width: 1023px) {
+  /* First, hide the desktop logo completely */
+  .main-navbar .logo {
+    display: none;
+  }
+  
+  /* Set up the mobile navbar layout */
+  .main-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+  }
+  
+  /* Show mobile elements with proper alignment */
+  .navbar-left, .navbar-center, .navbar-right {
+    display: flex;
+    align-items: center;
+    height: 40px; /* Fixed height for all elements */
+  }
+  
+  /* Mobile logo styling */
+  .navbar-center {
+    justify-content: center;
+  }
+  
+  /* Style the CineBook text in navbar-center */
+  .navbar-center h1,
+  .navbar-center a h1 {
+    color: var(--primary-color);
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+  }
+  
+  /* Style the profile button and menu toggle for vertical alignment */
+  .profile-btn, 
+  .menu-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+  }
+  
+  /* Menu toggle button styling */
+  .menu-toggle {
+    width: 30px;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 40px;
+  }
+  
+  /* Even spacing for menu toggle lines */
+  .menu-toggle span {
+    margin-bottom: 5px;
+    height: 3px;
+  }
+}

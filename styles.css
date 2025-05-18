@@ -1,0 +1,627 @@
+/* Global Styles */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+@import "css/navigation.css";
+@import "css/side-menu.css";
+@import "css/movie_info_modal.css";
+@import "css/seat_selection_modal.css";
+@import "css/reservation_modal.css";
+
+:root {
+  --primary-color: #ff0000;
+  --primary-color-rgb: 255, 0, 0;
+  --hover-color: #c90812;
+  --secondary-color: #141414;
+  --text-color: #ffffff;
+  --background-color: #000000;
+  --background-light: #1a1a1a;
+  --card-background: #252525;
+  --border-color: #333333;
+  --shadow-color: rgba(0, 0, 0, 0.5);
+  --seat-available: #444444;
+  --seat-selected: #ff0000;
+  --seat-reserved: #888888;
+  --modal-background: #222222;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+a {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+section {
+  padding: 60px 20px;
+}
+
+h1,
+h2,
+h3 {
+  margin-bottom: 20px;
+}
+
+/* Hero Section Styles */
+.hero {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: var(--secondary-color);
+}
+
+.hero-content {
+  position: absolute;
+  z-index: 10;
+  text-align: center;
+  max-width: 800px;
+  padding: 0 20px;
+  bottom: 50px; /* Adjust text position */
+}
+
+.hero-content h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+.hero-carousel {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.hero-carousel .carousel-item {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+}
+
+.hero-carousel .overlay-blur {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(10px);
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.carousel-poster {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  text-align: center;
+  width: 100%;
+  max-width: 100%;
+}
+
+.carousel-poster img {
+  max-width: 100%;
+  max-height: 100vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+}
+
+.carousel-container {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  height: 100%;
+}
+
+.carousel-item {
+  min-width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.carousel-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.carousel-caption {
+  position: absolute;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  width: 100%;
+  z-index: 10;
+}
+
+.carousel-caption h3 {
+  color: white;
+  margin-top: 15px;
+  font-size: 1.5rem;
+}
+
+.carousel-control {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: var(--text-color);
+  border: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+
+.carousel-control:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.carousel-control.prev {
+  left: 20px;
+}
+
+.carousel-control.next {
+  right: 20px;
+}
+
+/* Available Movies Section Styles */
+.available-movies {
+  background-color: var(--background-color);
+  text-align: center;
+}
+
+.available-movies h2 {
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+}
+
+.movies-carousel {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow: hidden;
+  padding: 0 10px;
+}
+
+.movies-container {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  gap: 0; /* Remove gap since we're using margin on movie cards */
+  padding: 15px 5px;
+  align-items: stretch; /* Make all items stretch to the same height */
+}
+
+.movie-card {
+  min-width: 250px;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 0 10px;
+}
+
+.movie-card:hover {
+  transform: translateY(-10px);
+}
+
+.movie-card img {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  display: block;
+}
+
+.movie-info {
+  padding: 15px;
+  background-color: var(--background-light);
+  flex: 1; /* Take remaining space in the flex container */
+  display: flex;
+  flex-direction: column;
+}
+
+.movie-info h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.movie-genre {
+  color: var(--secondary-text-color);
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+}
+
+.movie-buttons {
+  margin-top: auto; /* Push buttons to bottom */
+  width: 100%;
+}
+
+.info-btn {
+  background-color: transparent;
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  padding: 8px 15px;
+  border-radius: 5px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.info-btn:hover {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+}
+
+/* About Us Section Styles */
+.about-us {
+  background-color: var(--background-color);
+  text-align: center;
+}
+
+.about-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.about-content h2 {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+}
+
+.about-content p {
+  margin-bottom: 30px;
+  font-size: 1.1rem;
+}
+
+.about-btn {
+  display: inline-block;
+  background-color: transparent;
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
+  padding: 12px 25px;
+  border-radius: 5px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.about-btn:hover {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+}
+
+/* Footer Styles */
+footer {
+  background-color: var(--secondary-color);
+  padding: 60px 20px 20px;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-bottom: 40px;
+}
+
+.footer-logo h2 {
+  color: var(--primary-color);
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.footer-links h3,
+.footer-contact h3 {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.footer-links ul {
+  list-style: none;
+}
+
+.footer-links li {
+  margin-bottom: 10px;
+}
+
+.footer-links a:hover {
+  color: var(--primary-color);
+}
+
+.footer-contact p {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.footer-contact i {
+  margin-right: 10px;
+  color: var(--primary-color);
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-color);
+}
+
+/* Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  overflow-y: auto; /* Allow scrolling on the modal itself */
+}
+
+.modal-content {
+  background-color: var(--background-light);
+  padding: 30px;
+  border-radius: 10px;
+  position: relative;
+  animation: modalFadeIn 0.3s;
+  max-width: 1200px;
+  width: 90%;
+  margin: 5vh auto;
+}
+
+.modal-content.smaller-modal {
+  max-width: 450px;
+  padding: 25px;
+}
+
+.modal-content.large {
+  max-width: 800px;
+}
+
+/* Custom Scrollbar for Modal Content */
+/* For Webkit browsers (Chrome, Safari) */
+.modal-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+  background: var(--background-color);
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  background-color: var(--border-color);
+  border-radius: 4px;
+}
+
+/* For Firefox */
+.modal-content {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-color) var(--background-color);
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  color: var(--primary-color);
+}
+
+/* Login/Register Modal */
+.modal-tabs {
+  display: flex;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.tab-btn {
+  background-color: transparent;
+  color: var(--text-color);
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  opacity: 0.7;
+}
+
+.tab-btn.active {
+  opacity: 1;
+  border-bottom: 2px solid var(--primary-color);
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content#login {
+  display: block;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-row {
+  display: flex;
+  gap: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="password"] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.submit-btn {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  padding: 12px;
+  width: 100%;
+  border-radius: 5px;
+  font-weight: 600;
+  margin-top: 10px;
+  transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: #c90812;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+  .hero {
+    height: 80vh;
+  }
+  .hero-carousel .carousel-item {
+    height: 80vh;
+  }
+
+  .carousel-poster img {
+    max-height: 80vh;
+  }
+  
+  /* Footer responsive styles */
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    text-align: center;
+  }
+  
+  .footer-contact p {
+    justify-content: center;
+  }
+  
+  .footer-logo {
+    margin-bottom: 10px;
+  }
+  
+  .footer-links ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+  }
+  
+  .footer-links li {
+    margin-bottom: 5px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .hero {
+    height: 400px;
+  }
+
+  .hero-content h1 {
+    font-size: 1.5rem;
+  }
+
+  .hero-content p {
+    font-size: 1rem;
+  }
+
+  .movie-card {
+    min-width: 150px;
+  }
+  
+  /* Footer responsive styles */
+  footer {
+    padding: 40px 15px 15px;
+  }
+  
+  .footer-content {
+    gap: 25px;
+    margin-bottom: 25px;
+  }
+  
+  .footer-logo h2 {
+    font-size: 1.5rem;
+  }
+  
+  .footer-links h3,
+  .footer-contact h3 {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+  }
+  
+  .footer-links li {
+    font-size: 0.9rem;
+  }
+  
+  .footer-contact p {
+    font-size: 0.9rem;
+  }
+  
+  .footer-bottom {
+    font-size: 0.8rem;
+  }
+}

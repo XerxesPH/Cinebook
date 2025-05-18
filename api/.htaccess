@@ -1,0 +1,9 @@
+# Disable PHP error display
+php_flag display_errors off
+php_flag log_errors on
+php_value error_log ../logs/php-error.log
+
+# Ensure proper JSON content type
+<IfModule mod_headers.c>
+    Header always set Content-Type "application/json; charset=utf-8"
+</IfModule> 
